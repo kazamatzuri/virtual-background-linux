@@ -148,14 +148,25 @@ fake = pyfakewebcam.FakeWebcam('/dev/video20', width, height)
 
 # load the virtual background
 
-background = cv2.imread("background.jpg")
+background_cap = cv2.VideoCapture("background.mp4")
 
-background_scaled = cv2.resize(background, (width, height))
-background_scaled= cv2.flip(background_scaled,1)
+# background_scaled = cv2.resize(background, (width, height))
+# background_scaled= cv2.flip(background_scaled,1)
 
 # frames forever
+framecounter=0
 
 while True:
+    
+    framecounter+=1
+    if framecounter >= background_cap.get(cv2.CAP_PROP_FRAME_COUNT)-3:
+        framecounter=0
+        background_cap.set(cv2.CAP_PROP_POS_FRAMES,0)
+        
+    _,background_unscaled=background_cap.read()
+    background_scaled = cv2.resize(background_unscaled, (width, height))
+    background_scaled= cv2.flip(background_scaled,1)
+
 
     frame = get_frame(cap, background_scaled)
 
