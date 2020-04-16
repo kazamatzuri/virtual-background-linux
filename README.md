@@ -10,3 +10,10 @@ docker run   --rm   --name=bodypix --gpus=all --shm-size=1g --ulimit memlock=-1 
 ```
 
 possibly adjust your video devices, make sure you have https://github.com/NVIDIA/nvidia-docker installed. 
+
+
+(usual python setup, 3.8.1, run install requirements and then run fake.py)
+
+```
+python fake.py
+```
